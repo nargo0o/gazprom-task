@@ -1,0 +1,10 @@
+version: '3'
+services:
+  app1:
+    build: .
+    container_name: app1
+    environment:
+      PORT: 9001
+      CONFIG_FILE_PATH: dir_app1/conf/app1.conf
+      JAVA_OPTS: -Xms512m -Xmx1G
+

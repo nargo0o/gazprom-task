@@ -1,0 +1,30 @@
+# Описать docker-compose для запуска контейнеров.
+version: '3'
+services:
+  app2:
+    build: .
+    container_name: app2
+    environment:
+      PORT: 9002
+      CONFIG_FILE_PATH: dir_app2/conf/app2.conf
+      JAVA_OPTS: -Xms512m -Xmx1G
+    depends_on:
+      - app1
+    command: /bin/bash -c "nohup ./bin/app2 \
+      -Dconfig.file=$CONFIG_FILE_PATH \
+      -Dhttp.port=$PORT \
+      -Dfile.encoding=UTF8 > app2.log 2>&1 &"
+
+  app2_2:
+    build: .
+    container_name: app2_2
+    environment:
+      PORT: 9003
+      CONFIG_FILE_PATH: dir_app2/conf/app2.conf
+      JAVA_OPTS: -Xms512m -Xmx1G
+    depends_on:
+      - app1
+    command: /bin/bash -c "nohup ./bin/app2 \
+      -Dconfig.file=$CONFIG_FILE_PATH \
+      -Dhttp.port=$PORT \
+      -Dfile.encoding=UTF8 > app2_2.log 2>&1 &"

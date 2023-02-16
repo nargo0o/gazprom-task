@@ -1,0 +1,26 @@
+[Unit]
+Description=App2
+After=syslog.target network.target app1.service
+Requires=app1.service
+
+[Service]
+Type=simple
+User=app_admin
+Goup=apps
+SyslogIdentifyer=run app2
+WorkingDirectory=/usr/local/dir_app2
+
+Environment=PORT=9002
+Environment=CONFIG_FILE_PATH=conf/app2.conf
+Environment=JAVA_OPTS=-Xms512m -Xmx1G
+
+ExecStart=/usr/local/dir_app2/bin/app2
+Restart=always
+
+
+[Install]
+WantedBy=multi-user.target
+
+# service-файл хранится в директории /etc/systemd/system
+# sudo systemctl daemon-reload
+# sudo systemctl start app2
